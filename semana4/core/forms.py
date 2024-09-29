@@ -10,7 +10,7 @@ class RegistroClienteForm(forms.ModelForm):
 class CustomAuthenticationform(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={
         'class': 'form-control',
-        'placeholder': 'Nombre de usaurio',
+        'placeholder': 'Nombre de usuario',
     }))
 
     password = forms.CharField(widget=forms.PasswordInput(attrs={

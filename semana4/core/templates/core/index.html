@@ -102,12 +102,17 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ingresar<span class="caret"></span></a>
                     <ul class="dropdown-menu navbar-light bg-dark">
                       <li class="nav-item menu2"><a class="nav-link" style="color: white;" href="#" data-toggle="modal" data-target="#registerModal"><i class="fa fa-user-plus" aria-hidden="true"></i> Registrarse</a></li>
-                      <li class="nav-item menu2"><a class="nav-link" style="color: white;" href="{% url 'login'%}" id="loginBtn" ><i class="fa fa-user" aria-hidden="true"></i> Iniciar Sesión</a></li>
+                        {% if user.is_authenticated %}
+                            
+                            <li class="nav-item menu2"><a class="nav-link" style="color: white;" href="{% url 'login'%}" id="loginBtn" ><i class="fa fa-user" aria-hidden="true"></i> Administracion</a></li>
+                            
+                        {% else %}                 
+                            <li class="nav-item menu2"><a class="nav-link" style="color: white;" href="{% url 'login'%}" id="loginBtn" ><i class="fa fa-user" aria-hidden="true"></i> Iniciar Sesión</a></li>
+                        {% endif %}
                     </ul>
                   </li>
                 <li class="nav-item"><a class="nav-link" style="color: white;" href="/"><i class="fa fa-shopping-cart" aria-hidden="true"></i>Carro (1)</a></li>
               </ul>
-              
             </div>
         </nav>
     </header>
