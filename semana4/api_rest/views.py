@@ -11,7 +11,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 
 from core.models import Cliente
-from .serializers import ClienteSerializer,ClientePostSerializer
+from api_rest.serializers import ClienteSerializer,ClientePostSerializer
 # Create your views here.
 
 #Activar autenticaciòn
