@@ -1,87 +1,72 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.views import LoginView
-from .forms import CustomAuthenticationform
-from django.contrib.auth.decorators import login_required
-from .forms import RegistroClienteForm
+from django.shortcuts import render
+## Construcciòn de Rest
+from rest_framework.response import Response
+## Contrucciòn de de funciòn a vista
+from rest_framework.decorators import api_view
+## Seguridad eliminada
+from django.views.decorators.csrf import csrf_exempt
+##importaciòn formato Json
+from rest_framework.parsers import JSONParser
+##importaciòn de còdigo estatus
+from rest_framework import status
 
-
-
-
+from core.models import Cliente
+from .serializers import ClienteSerializer,ClientePostSerializer
 # Create your views here.
 
-def index(request):
-    if request.method == 'POST':
-        form =RegistroClienteForm (request.POST)
-        if form.is_valid():
-            form.save()
-        return render(request,'core/index.html')    
-    else:
-        form = RegistroClienteForm()
-    
-    contexto = {
-        'form': form,
-        'cliente': request.user
-    }
-    return render(request,'core/index.html',contexto)
-    
-def CategoriaAventura(request):
-    return render(request, 'core/CategoriaAventura.html')
-
-def Aventura1(request):
-    return render(request, 'core/Aventura1.html')
-
-def Aventura2(request):
-    return render(request, 'core/Aventura2.html')
-
-def CategoriaConduccion(request):
-    return render(request, 'core/CategoriaConduccion.html')
-
-def categoriaDeportes(request):
-    return render(request, 'core/categoriaDeportes.html')
-
-def CategoriaEstrategia(request):
-    return render(request, 'core/CategoriaEstrategia.html')
-
-def CategoriaInfantiles(request):
-    return render(request, 'core/CategoriaInfantiles.html')
-
-def Conduccion1(request):
-    return render(request, 'core/Conduccion1.html')
-
-def Conduccion2(request):
-    return render(request, 'core/Conduccion2.html')
-
-def Deporte1(request):
-    return render(request, 'core/Deporte1.html')
-
-def Deporte2(request):
-    return render(request, 'core/Deporte2.html')
-
-def Estrategia1(request):
-    return render(request, 'core/Estrategia1.html')
-
-def Estrategia2(request):
-    return render(request, 'core/Estrategia2.html')
-
-def Infantil1(request):
-    return render(request, 'core/Infantil1.html')
-
-def Infantil2(request):
-    return render(request, 'core/Infantil2.html')
+#Activar autenticaciòn
+from rest_framework.decorators import permission_classes
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 
-def Principal(request):
-    return render(request, 'core/Principal.html')
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.parsers import JSONParser
+from django.shortcuts import get_object_or_404
 
-def recuperar_contrasena(request):
-    return render(request, 'core/recuperar_contrasena.html')
 
-def register(request):
-    return render(request, 'core/register.html')
+@csrf_exempt
+@api_view(['GET','POST'])
+@permission_classes((IsAuthenticated,))
+def lista_cliente(request):
+    if request.method == 'GET':
+        cliente = Cliente.objects.all()
+        serializer = ClienteSerializer(cliente, many=True)
 
-from django.contrib.auth.views import LoginView
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = ClientePostSerializer(data=data)
 
-class CustomLoginView(LoginView):
-    template_name = 'core/login.html'
-    authentication_form = CustomAuthenticationform
-    redirect_authenticated_user = True
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status.HTTP_201_CREATED)
+        else:
+            print('error', serializer.errors)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+@csrf_exempt
+@api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes((IsAuthenticated,))
+def vista_cliente(request, id_cliente):
+    try:
+        cliente = Cliente.objects.get(id=id_cliente)
+    except Cliente.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = ClienteSerializer(cliente)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = ClienteSerializer(cliente, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        cliente.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
