@@ -1,10 +1,14 @@
 from django.urls import path
 from .views import index, CategoriaAventura, Aventura1, Aventura2,  CategoriaConduccion, categoriaDeportes, CategoriaEstrategia, \
     CategoriaInfantiles, Conduccion1, Conduccion2, Deporte1, Deporte2, Estrategia1, Estrategia2, Infantil1, Infantil2, \
-    Principal, recuperar_contrasena, register
+    login, Principal, recuperar_contrasena, register, mostrar_lista_juegos, mostrar_video_shows
 from django.contrib.auth import views as auth_view
 from django.contrib.auth.views import LogoutView
 from .views import CustomLoginView
+from django.contrib import admin
+from django.urls import include
+
+
 
 urlpatterns = [
     path('', index, name="index"),
@@ -23,10 +27,11 @@ urlpatterns = [
     path('Estrategia2/', Estrategia2, name="Estrategia2"),
     path('Infantil1/', Infantil1, name="Infantil1"),
     path('Infantil2/', Infantil2, name="Infantil2"),
-    path('login/', CustomLoginView.as_view(), name="login"),
-    path('logout/', LogoutView.as_view(next_page='index'), name='logout'),
+    path('login/', login, name="login"),
     path('Principal/', Principal, name="Principal"),
     path('recuperar_contrasena/', recuperar_contrasena, name="recuperar_contrasena"),
     path('register/', register, name="register"),
+    path('lista_juegos/', mostrar_lista_juegos, name="mostrar_lista_juegos"),
+    path('video_shows/', mostrar_video_shows, name='mostrar_video_shows'),
     
 ]
