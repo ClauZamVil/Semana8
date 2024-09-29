@@ -1,0 +1,145 @@
+
+body {
+    background: linear-gradient(rgb(40, 40, 40), rgb(56, 56, 56));
+    padding-top: 0px;
+    font-family: "Roboto", sans-serif;
+    color: #ffffff;
+    margin: 0;
+
+}
+
+header {
+    background-color: #333333;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    color: #ffda44;
+}
+
+header nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 15px;
+}
+
+header nav ul li a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+header .cart a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+main {
+    padding: 20px;
+}
+
+.breadcrumb a {
+    color: #ffda44;
+    text-decoration: none;
+}
+
+.product-detail {
+    display: flex;
+    gap: 20px;
+}
+
+.product-image img {
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+.product-info {
+    background-color: #444444;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.product-info h2 {
+    color: #ffda44;
+}
+
+.product-info .description {
+    margin: 10px 0;
+}
+
+.selection, .quantity, .price {
+    margin: 10px 0;
+}
+
+.add-to-cart {
+    background-color: #ffda44;
+    color: #333333;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.add-to-cart:hover {
+    background-color: #e5c33f;
+}
+
+.related-products {
+    margin-top: 40px;
+}
+
+.related-products h3 {
+    color: #ffda44;
+}
+
+.related-items {
+    display: flex;
+    gap: 20px;
+}
+
+.related-item {
+    background-color: #555555;
+    height: 100px;
+    width: 100px;
+    border-radius: 10px;
+}
+
+footer {
+    background-color: #333333;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer p {
+    margin: 0;
+}
+
+footer .newsletter {
+    display: flex;
+    gap: 10px;
+}
+
+footer .newsletter input[type="email"] {
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+}
+
+footer .newsletter button {
+    background-color: #ffda44;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+footer .newsletter button:hover {
+    background-color: #e5c33f;
+}

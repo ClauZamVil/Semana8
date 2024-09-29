@@ -1,0 +1,126 @@
+
+{%load static%}
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Lista de Juegos de Pokémon</title>
+        <link type="text/css" rel="stylesheet" href="{% static 'core/style_Principal.css'%}">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <meta http-equiv="cache-control" content="no-cache">
+    
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- Bootstrap CSS -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    
+    </head>
+<body>
+<header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="width: 100%;">
+            <a class="navbar-brand" href=" {% url 'Principal'%}"><img class="logo mr-5" src="{% static 'core/img/Webgames.png'%}" href="{% url 'Principal' %}"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link active" style="color: white;" aria-current="page" href="{% url 'Principal'%}">Inicio</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link active" style="color: white;" aria-current="page" href="{% url 'CategoriaAventura'%}">Aventura</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color: white;" href="{% url 'CategoriaConduccion'%}">Conducción</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" style="color: white;" href="{% url 'categoriaDeportes'%}">Deportes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color: white;" href="{% url 'CategoriaEstrategia'%}">Estrategia</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color: white;" href="{% url 'CategoriaInfantiles'%}">Infantiles</a>
+                </li>
+                <li class="nav-item">
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                </form>
+                </li>
+               
+                <li class="dropdown ">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ingresar<span class="caret"></span></a>
+                    <ul class="dropdown-menu navbar-light bg-dark">
+                      <li class="nav-item menu2"><a class="nav-link" style="color: white;" href="#" data-toggle="modal" data-target="#registerModal"><i class="fa fa-user-plus" aria-hidden="true"></i> Registrarse</a></li>
+                      <li class="nav-item menu2"><a class="nav-link" style="color: white;" href="{% url 'login'%}" id="loginBtn" ><i class="fa fa-user" aria-hidden="true"></i> Iniciar Sesión</a></li>
+                    </ul>
+                  </li>
+                <li class="nav-item"><a class="nav-link" style="color: white;" href="/"><i class="fa fa-shopping-cart" aria-hidden="true"></i>Carro (1)</a></li>
+              </ul>
+              
+            </div>
+        </nav>
+</header>
+<section>
+        <div class=" container-fluid">
+            <div class="container">
+                <h1 class="mt-4 mb-4 text-white">Proximamente disponibles:</h1>
+                <div class="row">
+                    
+                    {% for juego in juegos %}
+                        <div class="col-md-4 mb-4"> <!-- Columna de Bootstrap -->
+                            <div class="card"> <!-- Tarjeta de Bootstrap -->
+                                <img src="{{ juego.image }}" class="card-img-top" alt="{{ juego.name }} image"> <!-- Imagen del juego -->
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ juego.name }}</h5>  <!-- Nombre del juego -->
+                                    <p class="card-text"><strong>Descripción:</strong> {{ juego.description }}</p> <!-- Descripción -->
+                                    <p class="card-text"><strong>Fecha de Lanzamiento:</strong> {{ juego.released }}</p> <!-- Fecha de lanzamiento -->
+                                    <p class="card-text"><strong>Calificación:</strong> {{ juego.rating }}</p> <!-- Calificación -->
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <p>No hay juegos disponibles.</p>
+                    {% endfor %}
+                </div>
+            </div>
+            
+        </div>
+</section>
+<footer></footer>
+    <div class="container-fluid">
+    <div class="footer">
+
+        <div class="row">
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-instagram"></i></a>
+            <a href="#"><i class="fa fa-youtube"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+        </div>
+
+        <div class="row">
+            <ul>
+                <li><a href="{% url 'CategoriaAventura' %}">Aventura</a></li>
+                <li><a href="{% url 'CategoriaConduccion' %}">Conducción</a></li>
+                <li><a href="{% url 'categoriaDeportes' %}">Deporte</a></li>
+                <li><a href="{% url 'CategoriaEstrategia' %}">Estrategias</a></li>
+                <li><a href="{% url 'CategoriaInfantiles' %}">Infantiles</a></li>
+            </ul>
+        </div>
+        <div class="row">
+            <div>
+                <a href="{% url 'Principal' %}"><img class="logo img-fluid" src="{% static 'core/img/Webgames.png' %}" href="{% url 'index' %}"></a>
+            </div>
+            Copyright © 2024  - All rights reserved 
+        </div>
+    </div>
+    </div>
+</footer>
+</body>
+
+</html>
